@@ -6,15 +6,17 @@
 /*   By: vmiachko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/01 15:08:47 by vmiachko          #+#    #+#             */
-/*   Updated: 2018/03/09 11:55:15 by vmiachko         ###   ########.fr       */
+/*   Updated: 2018/05/14 19:48:33 by vmiachko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 
 # define LIBFT_H
+# define ABS(NUM) ((NUM > 0) ? (NUM) : -(NUM))
 # include <string.h>
 # include <stdlib.h>
+# include "ft_printf/ft_printf.h"
 
 typedef struct		s_list
 {
@@ -94,5 +96,11 @@ char				*decode(int value_of_character);
 void				ft_putstr_fixed_size(const char *str, size_t nbytes);
 void				*ft_realloc_fixed_size(void *ptr,
 									size_t size, size_t oldsize);
-
+void				ft_swap(double *a, double *b);
+int					ft_abs(double v);
+int					ft_printf(const char *format, ...);
+void				**ft_alloc_2d(size_t wrd, size_t str);
+int					**ft_alloc_2d_int(size_t wrd, size_t str);
+void				ft_free_2d(void **arr);
+void				ft_free_2d_int(void **arr, size_t n);
 #endif

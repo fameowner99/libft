@@ -1,34 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_alloc_2d_int.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vmiachko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/10/30 19:30:59 by vmiachko          #+#    #+#             */
-/*   Updated: 2017/11/08 17:59:50 by vmiachko         ###   ########.fr       */
+/*   Created: 2018/05/14 17:08:10 by vmiachko          #+#    #+#             */
+/*   Updated: 2018/05/14 17:14:20 by vmiachko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include "libft.h"
 
-char	*ft_strdup(char *src)
+int			**ft_alloc_2d_int(size_t wrd, size_t str)
 {
-	int		i;
-	char	*x;
+	int		**buffer;
+	size_t	i;
 
-	if (!src)
+	i = 0;
+	buffer = (int **)malloc((wrd + 1) * sizeof(int*));
+	if (buffer == NULL)
 		return (NULL);
 	i = 0;
-	x = (char*)malloc(sizeof(char) * (ft_strlen(src) + 1));
-	if (x == NULL)
-		return (NULL);
-	while (src[i] != '\0')
+	while (i < wrd)
 	{
-		x[i] = src[i];
+		buffer[i] = (int*)ft_memalloc((str + 1) * sizeof(int));
+		if (buffer[i] == NULL)
+		{
+			i = 0;
+			while (buffer[i])
+				free(buffer[i++]);
+			free(buffer);
+			return (NULL);
+		}
 		++i;
 	}
-	x[i] = '\0';
-	return (x);
+	buffer[i] = NULL;
+	return (buffer);
 }

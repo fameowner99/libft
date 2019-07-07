@@ -1,34 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_swap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vmiachko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/23 14:18:15 by vmiachko          #+#    #+#             */
-/*   Updated: 2019/01/29 17:58:42 by vmiachko         ###   ########.fr       */
+/*   Created: 2018/03/12 20:32:23 by vmiachko          #+#    #+#             */
+/*   Updated: 2018/03/13 12:46:03 by vmiachko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-
-# define GET_NEXT_LINE_H
-
-# define BUFF_SIZE 20
-
-# include "libft.h"
-# include <stdlib.h>
-# include <unistd.h>
-# include <fcntl.h>
-# include <sys/types.h>
-# include <sys/stat.h>
-
-int				get_next_line(const int fd, char **line);
-
-typedef struct	s_counters
+void		ft_swap(double *a, double *b)
 {
-	ssize_t		b;
-	size_t		i;
-}				t_counters;
+	double	tmp;
 
-#endif
+	tmp = *a;
+	*a = *b;
+	*b = tmp;
+}

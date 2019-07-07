@@ -56,7 +56,7 @@ char			**ft_strsplit(char const *s, char c)
 	res = (char**)malloc((wrd + 2) * sizeof(char*));
 	if (res == NULL)
 		return (NULL);
-	while (i < wrd + 1)
+	while (i < wrd)
 	{
 		res[i] = (char*)malloc((ft_count_letters(s, c) + 1) * sizeof(char));
 		if (res[i] == NULL)

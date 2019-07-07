@@ -1,34 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vmiachko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/23 14:18:15 by vmiachko          #+#    #+#             */
-/*   Updated: 2019/01/29 17:58:42 by vmiachko         ###   ########.fr       */
+/*   Created: 2018/01/30 15:14:34 by vmiachko          #+#    #+#             */
+/*   Updated: 2018/03/10 14:52:27 by vmiachko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
+#include "ft_printf/ft_printf.h"
 
-# define GET_NEXT_LINE_H
-
-# define BUFF_SIZE 20
-
-# include "libft.h"
-# include <stdlib.h>
-# include <unistd.h>
-# include <fcntl.h>
-# include <sys/types.h>
-# include <sys/stat.h>
-
-int				get_next_line(const int fd, char **line);
-
-typedef struct	s_counters
+int			ft_printf(const char *format, ...)
 {
-	ssize_t		b;
-	size_t		i;
-}				t_counters;
+	va_list	lst;
+	char	*res;
 
-#endif
+	g_nbytes = 0;
+	va_start(lst, format);
+	res = whole_reading(format, lst, 0, 0);
+	ft_putstr_fixed_size(res, g_nbytes);
+	if (g_nbytes > 0)
+		free(res);
+	va_end(lst);
+	return ((int)g_nbytes);
+}

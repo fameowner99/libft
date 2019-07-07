@@ -6,7 +6,7 @@
 /*   By: vmiachko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/30 19:38:11 by vmiachko          #+#    #+#             */
-/*   Updated: 2017/11/22 19:56:00 by vmiachko         ###   ########.fr       */
+/*   Updated: 2018/05/07 14:02:56 by vmiachko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,8 @@
 char		*ft_strchr(const char *s, int c)
 {
 	int		i;
-	int		j;
 	char	*temp;
 
-	j = 0;
 	i = 0;
 	while (s[i])
 	{

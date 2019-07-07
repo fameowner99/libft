@@ -6,7 +6,7 @@
 /*   By: vmiachko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/23 14:18:43 by vmiachko          #+#    #+#             */
-/*   Updated: 2018/02/01 17:19:01 by vmiachko         ###   ########.fr       */
+/*   Updated: 2018/03/26 16:42:26 by vmiachko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,6 @@ static int					reading(char *content, char **res,
 			{
 				*res = ft_realloc(*res, counter.i + 1);
 				ft_memmove(*res + ft_strlen(*res), buf, counter.i);
-				t->content = ft_realloc(t->content,
-								ft_strlen(buf + counter.i + 1) + 1);
 				ft_memmove(t->content, (buf + counter.i + 1),
 								ft_strlen(buf + counter.i + 1) + 1);
 				return (1);

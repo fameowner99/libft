@@ -1,24 +1,5 @@
 NAME = libft.a
 
-FLAGS = -Wall -Wextra -Werror
-
-OBJ = ft_atoi.o ft_lstiter.o ft_putchar_fd.o ft_strdel.o ft_strncpy.o \
-	ft_bzero.o ft_lstmap.o ft_putendl.o ft_strdup.o ft_strnequ.o \
-	ft_isalnum.o ft_lstnew.o ft_putendl_fd.o ft_strequ.o ft_strnew.o \
-	ft_isalpha.o ft_memalloc.o ft_putnbr.o ft_striter.o ft_strnstr.o \
-	ft_isascii.o ft_memccpy.o ft_putnbr_fd.o ft_striteri.o ft_strrchr.o \
-	ft_isdigit.o ft_memchr.o ft_putstr.o ft_strjoin.o ft_strsplit.o \
-	ft_isprint.o ft_memcmp.o ft_putstr_fd.o ft_strlcat.o ft_strstr.o \
-	ft_itoa.o ft_memcpy.o ft_strcat.o ft_strlen.o ft_strsub.o \
-	ft_memdel.o ft_strchr.o ft_strmap.o ft_strtrim.o \
-	ft_lstadd.o ft_memmove.o ft_strclr.o ft_strmapi.o ft_tolower.o \
-	ft_lstdel.o ft_memset.o ft_strcmp.o ft_strncat.o ft_toupper.o \
-	ft_lstdelone.o ft_putchar.o ft_strcpy.o ft_strncmp.o \
-	ft_count_words.o ft_count_letters.o ft_count_digits.o \
-	ft_max.o get_next_line.o ft_realloc.o ft_atoi_ui.o \
-	ft_decode.o ft_putstr_fixed_size.o \
-	ft_realloc_fixed_size.o
-
 SRC = ft_atoi.c ft_lstiter.c ft_putchar_fd.c ft_strdel.c ft_strncpy.c \
 	ft_bzero.c ft_lstmap.c ft_putendl.c ft_strdup.c ft_strnequ.c \
 	ft_isalnum.c ft_lstnew.c ft_putendl_fd.c ft_strequ.c ft_strnew.c \
@@ -34,21 +15,36 @@ SRC = ft_atoi.c ft_lstiter.c ft_putchar_fd.c ft_strdel.c ft_strncpy.c \
 	ft_count_words.c ft_count_letters.c ft_count_digits.c \
 	ft_max.c get_next_line.c ft_realloc.c ft_atoi_ui.c \
 	ft_decode.c ft_putstr_fixed_size.c \
-	ft_realloc_fixed_size.c
+	ft_realloc_fixed_size.c ft_swap.c ft_abs.c \
+	ft_printf/convert_to_another_base.c \
+	ft_printf/get_specifier.c \
+	ft_printf/parsing1.c ft_printf/result_output.c \
+	ft_printf/ft_itoa_for_ui.c ft_printf/get_specifier1.c \
+	ft_printf/parsing2.c ft_printf/hash.c ft_printf/parsing_tools.c \
+	ft_printf/parsing.c ft_printf/parsing_tools1.c \
+	ft_printf.c ft_alloc_2d.c ft_free_2d.c ft_alloc_2d_int.c \
+	ft_free_2d_int.c 
 
-RMOBJ = rm -f $(OBJ)
-
-$(NAME):
-		gcc $(FLAGS) -c $(SRC)
-		ar rc $(NAME) $(OBJ)
-		ranlib $(NAME)
+OBJ = $(SRC:.c=.o)
 
 all: $(NAME)
 
+$(NAME) : $(OBJ)
+	@ar rc $@ $^
+	@echo "LIBFT is ready to use"
+
+%.o:%.c
+	@gcc -Wall -Werror -Wextra -o $@ -c $<
+	@echo "building... $@"
+
 clean:
-	$(RMOBJ)
+	@rm -f $(OBJ)
+	@echo "cleaned"
 
 fclean: clean
-	rm -f $(NAME)
+	@rm -f $(NAME)
+	@echo "fcleaned"
 
 re: fclean all
+
+.PHONY = all clean fclean re
