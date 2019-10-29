@@ -6,7 +6,7 @@
 /*   By: vmiachko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/18 17:01:31 by vmiachko          #+#    #+#             */
-/*   Updated: 2018/04/23 17:49:56 by vmiachko         ###   ########.fr       */
+/*   Updated: 2019/10/29 17:35:03 by vmiachko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 # define BCYAN "\033[1;36m"
 # define RESET "\033[0m"
 
-# include "../libft.h"
+# include "libft.h"
 # include <stdarg.h>
 # include <stdlib.h>
 

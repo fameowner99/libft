@@ -16,7 +16,7 @@
 # define ABS(NUM) ((NUM > 0) ? (NUM) : -(NUM))
 # include <string.h>
 # include <stdlib.h>
-# include "ft_printf/ft_printf.h"
+# include "ft_printf.h"
 
 typedef struct		s_list
 {
