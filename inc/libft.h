@@ -17,6 +17,7 @@
 # include <string.h>
 # include <stdlib.h>
 # include "ft_printf.h"
+# include "stdint.h"
 
 typedef struct		s_list
 {
