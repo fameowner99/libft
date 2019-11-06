@@ -11,9 +11,8 @@
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <unistd.h>
 
 void	ft_putstr_fixed_size(char const *str, size_t nbytes)
 {
-	write(STDOUT_FILENO, str, nbytes);
+	ft_write(STDOUT_FILENO, str, nbytes);
 }

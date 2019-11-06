@@ -41,7 +41,7 @@ static int					reading(char *content, char **res,
 {
 	char					buf[BUFF_SIZE + 1];
 
-	while ((counter.b = read((int)t->content_size, buf, BUFF_SIZE)))
+	while ((counter.b = ft_read((int)t->content_size, buf, BUFF_SIZE)))
 	{
 		buf[counter.b] = '\0';
 		counter.i = 0;
@@ -100,7 +100,7 @@ int							get_next_line(const int fd, char **line)
 
 	counter.i = 0;
 	tmp = t;
-	if (fd < 0 || read(fd, tmp, 0) < 0 || !line)
+	if (fd < 0 || ft_read(fd, tmp, 0) < 0 || !line)
 		return (-1);
 	tmp = check_if_first_mentioned((size_t)fd, &t);
 	*line = "\0";

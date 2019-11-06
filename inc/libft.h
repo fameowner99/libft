@@ -18,6 +18,13 @@
 # include <stdlib.h>
 # include "ft_printf.h"
 # include "stdint.h"
+# include <unistd.h>
+
+#if defined(WIN32) || defined(_WIN32) || defined(_WIN64)
+
+#define OS_Windows 1
+
+#endif
 
 typedef struct		s_list
 {
@@ -104,4 +111,6 @@ void				**ft_alloc_2d(size_t wrd, size_t str);
 int					**ft_alloc_2d_int(size_t wrd, size_t str);
 void				ft_free_2d(void **arr);
 void				ft_free_2d_int(void **arr, size_t n);
+ssize_t				ft_write(int fd, const void *buf, size_t nbyte);
+ssize_t				ft_read(int fd, void *buf, size_t nbyte);
 #endif

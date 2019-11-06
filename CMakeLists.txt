@@ -90,13 +90,16 @@ ${CMAKE_CURRENT_LIST_DIR}/src/ft_printf/result_output.c
 ${CMAKE_CURRENT_LIST_DIR}/src/ft_printf/get_specifier.c
 ${CMAKE_CURRENT_LIST_DIR}/src/ft_printf/parsing.c
 ${CMAKE_CURRENT_LIST_DIR}/src/ft_printf/parsing_tools.c
+        ${CMAKE_CURRENT_LIST_DIR}/src/ft_write.c
+        ${CMAKE_CURRENT_LIST_DIR}/src/ft_read.c
 )
 set(HEADER_FILES
-${CMAKE_CURRENT_LIST_DIR}/inc/ft_decode.h
-${CMAKE_CURRENT_LIST_DIR}/inc/ft_printf.h
-${CMAKE_CURRENT_LIST_DIR}/inc/get_next_line.h
 ${CMAKE_CURRENT_LIST_DIR}/inc/libft.h)
 
-include_directories(${CMAKE_CURRENT_LIST_DIR}/inc)
-
 add_library(ft STATIC ${HEADER_FILES} ${SOURCE_FILES})
+
+target_include_directories(ft PRIVATE ${CMAKE_CURRENT_LIST_DIR}/inc)
+
+if (WIN32)
+    target_include_directories(ft PUBLIC ${CMAKE_CURRENT_LIST_DIR}/inc/windows_inc)
+endif(WIN32)
