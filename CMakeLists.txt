@@ -92,6 +92,7 @@ ${CMAKE_CURRENT_LIST_DIR}/src/ft_printf/parsing.c
 ${CMAKE_CURRENT_LIST_DIR}/src/ft_printf/parsing_tools.c
         ${CMAKE_CURRENT_LIST_DIR}/src/ft_write.c
         ${CMAKE_CURRENT_LIST_DIR}/src/ft_read.c
+        ${CMAKE_CURRENT_LIST_DIR}/src/ft_append.c
 )
 set(HEADER_FILES
 ${CMAKE_CURRENT_LIST_DIR}/inc/libft.h)

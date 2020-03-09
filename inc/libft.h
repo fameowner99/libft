@@ -6,7 +6,7 @@
 /*   By: vmiachko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/01 15:08:47 by vmiachko          #+#    #+#             */
-/*   Updated: 2018/05/14 19:48:33 by vmiachko         ###   ########.fr       */
+/*   Updated: 2020/03/09 19:21:29 by vmiachko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,4 +113,5 @@ void				ft_free_2d(void **arr);
 void				ft_free_2d_int(void **arr, size_t n);
 ssize_t				ft_write(int fd, const void *buf, size_t nbyte);
 ssize_t				ft_read(int fd, void *buf, size_t nbyte);
+char				*ft_append(char *curr_str, char *to_append);
 #endif
