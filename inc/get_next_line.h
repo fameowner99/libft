@@ -14,7 +14,7 @@
 
 # define GET_NEXT_LINE_H
 
-# define BUFF_SIZE 20
+# define BUFF_SIZE 10
 
 # include "libft.h"
 # include <stdlib.h>
@@ -23,11 +23,5 @@
 # include <sys/stat.h>
 
 int				get_next_line(const int fd, char **line);
-
-typedef struct	s_counters
-{
-	ssize_t		b;
-	size_t		i;
-}				t_counters;
 
 #endif

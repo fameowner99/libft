@@ -12,97 +12,94 @@
 
 #include "get_next_line.h"
 
-static t_list				*check_if_first_mentioned(size_t fd, t_list **t)
+t_list *                    get_remainder(t_list **container, const int fd)
 {
-	t_list					*tmp;
+    t_list *iterator = *container;
 
-	tmp = *t;
-	if (tmp == NULL)
-	{
-		tmp = ft_lstnew("\0", 1);
-		tmp->content_size = fd;
-		*t = tmp;
-		return (*t);
-	}
-	while (tmp)
-	{
-		if (fd == tmp->content_size)
-			return (tmp);
-		tmp = tmp->next;
-	}
-	tmp = ft_lstnew("\0", 1);
-	tmp->content_size = fd;
-	ft_lstadd(t, tmp);
-	return (*t);
+    if (iterator == NULL)
+    {
+        iterator = ft_lstnew(NULL, fd);
+        iterator->content_size = fd;
+        *container = iterator;
+        return (*container);
+    }
+    while (iterator)
+    {
+        if (fd == iterator->content_size)
+            return iterator;
+        iterator = iterator->next;
+    }
+    iterator = ft_lstnew(NULL, fd);
+    iterator->content_size = fd;
+    ft_lstadd(container, iterator);
+    return (*container);
 }
 
-static int					reading(char *content, char **res,
-			t_counters counter, t_list *t)
+int                         read_from_file(t_list *container, char **line)
 {
-	char					buf[BUFF_SIZE + 1];
+    char                    buf[BUFF_SIZE + 1];
+    int                     read;
+    int                     counter;
 
-	while ((counter.b = ft_read((int)t->content_size, buf, BUFF_SIZE)))
-	{
-		buf[counter.b] = '\0';
-		counter.i = 0;
-		while (buf[counter.i])
-		{
-			if (buf[counter.i] == '\n')
-			{
-				*res = ft_realloc(*res, counter.i + 1);
-				ft_memmove(*res + ft_strlen(*res), buf, counter.i);
-				ft_memmove(t->content, (buf + counter.i + 1),
-								ft_strlen(buf + counter.i + 1) + 1);
-				return (1);
-			}
-			++counter.i;
-		}
-		*res = ft_realloc(*res, (size_t)(counter.i + 1));
-		ft_memmove(*res + ft_strlen(*res), buf, counter.i + 1);
-	}
-	content[0] = '\0';
-	return (**res == '\0' ? 0 : 1);
+    while ((read = ft_read(container->content_size, buf, BUFF_SIZE)))
+    {
+        buf[read] = '\0';
+        counter = 0;
+        while (buf[counter])
+        {
+            if (buf[counter] == '\n')
+            {
+                *line = ft_realloc(*line, counter + 1);
+                ft_memmove(*line + ft_strlen(*line), buf, counter);
+                container->content = ft_realloc(container->content, ft_strlen(buf + counter + 1) + 1);
+                ft_memmove(container->content, buf + counter + 1, ft_strlen(buf + counter + 1) + 1);
+                return (1);
+            }
+            ++counter;
+        }
+        *line = ft_realloc(*line, counter + 1);
+        ft_memmove(*line + ft_strlen(*line), buf, counter + 1);
+    }
+    container->content = NULL;
+    return (**line == '\0' ? 0 : 1);
 }
 
-static int					read_from_file(t_list *t, char **res,
-														t_counters counter)
+int                         find_line_break(t_list *container, char **line)
 {
-	char					*content;
+    int counter;
+    char *content;
 
-	content = t->content;
-	if (content[0] != '\0')
-	{
-		counter.i = 0;
-		while (content[counter.i])
-		{
-			if (content[counter.i] == '\n')
-			{
-				*res = ft_realloc(*res, counter.i + 1);
-				ft_memmove(*res, content, counter.i + 1);
-				res[0][counter.i] = '\0';
-				ft_memmove(content, (content + counter.i + 1),
-							ft_strlen(content + counter.i) + 1);
-				return (1);
-			}
-			++counter.i;
-		}
-		*res = ft_realloc(*res, counter.i + 1);
-		ft_memmove(*res, content, counter.i + 1);
-	}
-	return (reading(content, res, counter, t));
+    counter = 0;
+    if (container->content)
+    {
+        content = container->content;
+        while (content[counter])
+        {
+            if (content[counter] == '\n')
+            {
+                *line = ft_realloc(*line, counter + 1);
+                ft_memmove(*line, content, counter);
+                ft_memmove(content, content + counter + 1, ft_strlen(content + counter + 1) + 1);
+                return (1);
+            }
+            ++counter;
+        }
+        *line = ft_realloc(*line, counter + 1);
+        ft_memmove(*line, content, counter + 1);
+        free(content);
+        container->content = NULL;
+    }
+    return (read_from_file(container, line));
 }
 
 int							get_next_line(const int fd, char **line)
 {
-	static t_list	*t = NULL;
-	t_list			*tmp;
-	t_counters		counter;
+    static t_list *container = NULL;
+    t_list *node;
 
-	counter.i = 0;
-	tmp = t;
-	if (fd < 0 || ft_read(fd, tmp, 0) < 0 || !line)
-		return (-1);
-	tmp = check_if_first_mentioned((size_t)fd, &t);
-	*line = "\0";
-	return (read_from_file(tmp, line, counter));
+    if (fd < 0 || ft_read(fd, NULL, 0) < 0)
+        return (-1);
+    node = get_remainder(&container, fd);
+    *line = NULL;
+    return (find_line_break(node, line));
 }

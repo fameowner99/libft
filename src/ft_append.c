@@ -22,7 +22,7 @@ char		*ft_append(char *curr_str, char *to_append)
 	i = ft_strlen(curr_str);
 	k = ft_strlen(to_append);
 	j = 0;
-	new_str = ft_realloc(curr_str, ft_strlen(curr_str) + ft_strlen(to_append));
+	new_str = ft_realloc(curr_str, ft_strlen(to_append) + 1);
 	while (j < k)
 		new_str[i++] = to_append[j++];
 	return (new_str);
