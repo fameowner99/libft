@@ -12,7 +12,7 @@
 
 #include "get_next_line.h"
 
-t_list *                    get_remainder(t_list **container, const int fd)
+static t_list *                    get_remainder(t_list **container, const int fd)
 {
     t_list *iterator = *container;
 
@@ -35,11 +35,17 @@ t_list *                    get_remainder(t_list **container, const int fd)
     return (*container);
 }
 
-int                         read_from_file(t_list *container, char **line)
+static void allocate_and_move(char **line, int line_pointer_shift, char *str, int counter)
+{
+    *line = ft_realloc(*line, counter + 1);
+    ft_memmove(*line + line_pointer_shift, str, counter);
+    ft_memmove(str, str + counter + 1, ft_strlen(str + counter + 1) + 1);
+}
+
+static int                         read_from_file(t_list *container, char **line, int counter)
 {
     char                    buf[BUFF_SIZE + 1];
     int                     read;
-    int                     counter;
 
     while ((read = ft_read(container->content_size, buf, BUFF_SIZE)))
     {
@@ -61,35 +67,34 @@ int                         read_from_file(t_list *container, char **line)
         ft_memmove(*line + ft_strlen(*line), buf, counter + 1);
     }
     container->content = NULL;
-    return (**line == '\0' ? 0 : 1);
+    return (line ? 0 : 1);
 }
 
-int                         find_line_break(t_list *container, char **line)
+static int                         find_line_break(t_list *container, char **line, int counter)
 {
-    int counter;
     char *content;
 
-    counter = 0;
-    if (container->content)
+    content = container->content;
+    if (content)
     {
-        content = container->content;
         while (content[counter])
         {
             if (content[counter] == '\n')
             {
-                *line = ft_realloc(*line, counter + 1);
-                ft_memmove(*line, content, counter);
-                ft_memmove(content, content + counter + 1, ft_strlen(content + counter + 1) + 1);
+                allocate_and_move(line, 0, container->content, counter);
                 return (1);
             }
             ++counter;
         }
-        *line = ft_realloc(*line, counter + 1);
-        ft_memmove(*line, content, counter + 1);
+        if (content[0])
+        {
+            *line = ft_realloc(*line, counter + 1);
+            ft_memmove(*line, content, counter + 1);
+        }
         free(content);
         container->content = NULL;
     }
-    return (read_from_file(container, line));
+    return (read_from_file(container, line, 0));
 }
 
 int							get_next_line(const int fd, char **line)
@@ -101,5 +106,5 @@ int							get_next_line(const int fd, char **line)
         return (-1);
     node = get_remainder(&container, fd);
     *line = NULL;
-    return (find_line_break(node, line));
+    return (find_line_break(node, line, 0));
 }
