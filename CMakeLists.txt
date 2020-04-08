@@ -95,12 +95,8 @@ ${CMAKE_CURRENT_LIST_DIR}/src/ft_printf/parsing_tools.c
         ${CMAKE_CURRENT_LIST_DIR}/src/ft_append.c
 )
 set(HEADER_FILES
-${CMAKE_CURRENT_LIST_DIR}/inc/libft.h)
+${CMAKE_CURRENT_LIST_DIR}/inc/)
 
 add_library(ft STATIC ${HEADER_FILES} ${SOURCE_FILES})
 
-target_include_directories(ft PRIVATE ${CMAKE_CURRENT_LIST_DIR}/inc)
-
-if (WIN32)
-    target_include_directories(ft PUBLIC ${CMAKE_CURRENT_LIST_DIR}/inc/windows_inc)
-endif(WIN32)
+target_include_directories(ft PRIVATE ${HEADER_FILES})
