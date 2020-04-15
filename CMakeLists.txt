@@ -90,12 +90,18 @@ ${CMAKE_CURRENT_LIST_DIR}/src/ft_printf/result_output.c
 ${CMAKE_CURRENT_LIST_DIR}/src/ft_printf/get_specifier.c
 ${CMAKE_CURRENT_LIST_DIR}/src/ft_printf/parsing.c
 ${CMAKE_CURRENT_LIST_DIR}/src/ft_printf/parsing_tools.c
-        ${CMAKE_CURRENT_LIST_DIR}/src/ft_write.c
-        ${CMAKE_CURRENT_LIST_DIR}/src/ft_read.c
-        ${CMAKE_CURRENT_LIST_DIR}/src/ft_append.c
-)
+${CMAKE_CURRENT_LIST_DIR}/src/ft_write.c
+${CMAKE_CURRENT_LIST_DIR}/src/ft_read.c
+${CMAKE_CURRENT_LIST_DIR}/src/ft_append.c)
+
 set(HEADER_FILES
 ${CMAKE_CURRENT_LIST_DIR}/inc/)
+
+
+if (WIN32)
+   set(HEADER_FILES ${HEADER_FILES}
+   ${CMAKE_CURRENT_LIST_DIR}/inc/windows_inc)
+endif(WIN32) 
 
 add_library(ft STATIC ${HEADER_FILES} ${SOURCE_FILES})
 
