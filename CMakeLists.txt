@@ -105,4 +105,4 @@ endif(WIN32)
 
 add_library(ft STATIC ${HEADER_FILES} ${SOURCE_FILES})
 
-target_include_directories(ft PRIVATE ${HEADER_FILES})
+target_include_directories(ft PUBLIC ${HEADER_FILES})
